@@ -40,23 +40,16 @@ class MainActivity : AppCompatActivity() {
 
         val retrofitData = retrofitBuilder.getData()
 
-        retrofitData.enqueue(object : Callback<List<MyDataItem>?> {
-            override fun onResponse(
-                call: Call<List<MyDataItem>?>,
-                response: Response<List<MyDataItem>?>
-            ) {
+        retrofitData.enqueue(object : Callback<ResponseBody?> {
 
-                val responseBody = response.body()!!
-                Log.e("output",responseBody.toString())
-
+            override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
+                val responseBody = response.body()!!.articles
                 myAdapter = MyAdapter(baseContext, responseBody)
                 recyclerview.adapter = myAdapter
-
-
             }
 
-            override fun onFailure(call: Call<List<MyDataItem>?>, t: Throwable) {
-                Log.d("some", "onFailure()")
+            override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
+                Log.d("some", "onFailure() of the fetching response")
             }
         })
     }

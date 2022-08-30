@@ -1,7 +1,7 @@
 package com.example.newsapi
 
 data class MyDataItem(
-    val source : Source,
+    val source: Source,
     val author: String,
     val content: String,
     val description: String,
