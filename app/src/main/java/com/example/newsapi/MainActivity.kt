@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
                 val responseBody = response.body()!!.articles
-                myAdapter = MyAdapter(baseContext, responseBody)
+                myAdapter = MyAdapter(this@MainActivity, responseBody)
                 recyclerview.adapter = myAdapter
             }
 

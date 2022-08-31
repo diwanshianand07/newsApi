@@ -1,8 +1,7 @@
 package com.example.newsapi
 
-import android.app.Activity
+import android.annotation.SuppressLint
 import android.content.Context
-import android.content.ContextWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,16 +23,17 @@ class MyAdapter(val context : Context, val userList : List<MyDataItem>) : Recycl
         return ViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         holder.author.text = userList[position].author
         holder.title.text = userList[position].title
         Glide.with(holder.itemView.context).load(userList[position].urlToImage).into(holder.img)
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 val activity = v!!.context as AppCompatActivity
-                val demoFragment = DemoFragment()
+                val demoFragment = Fragment(userList[position])
                 activity.supportFragmentManager.beginTransaction().replace(R.id.display, demoFragment)
                     .addToBackStack(null).commit()
+
             }
 
         })
